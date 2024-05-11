@@ -1,21 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-  getData() {
-    return [
-      {
-        id: 1,
-        name: 'John',
-      },
-      {
-        id: 2,
-        name: 'Mary',
-      },
-      {
-        id: 3,
-        name: 'Sally',
-      },
-    ];
-  }
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
 }
