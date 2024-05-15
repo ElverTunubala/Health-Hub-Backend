@@ -1,15 +1,12 @@
+import { IsNumber, IsString } from 'class-validator';
 
-import { IsNumber, IsString} from 'class-validator';
+export class UserDto {
+  @IsNumber()
+  public id: number;
 
-export class UserDto{
+  @IsString()
+  public name: string;
 
-    @IsNumber()
-    public id: number;
-
-    @IsString()
-    public name: string;
-
-    @IsString()
-    public email: string;
-
+  @IsString()
+  public email: string;
 }

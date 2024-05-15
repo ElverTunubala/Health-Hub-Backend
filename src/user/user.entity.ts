@@ -11,6 +11,6 @@ export class User {
   @Column()
   email: string;
 
-  @Column({type: 'timestamp', default: ()=> "CURRENT_TIMESTAMP"})
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   creatDate: Date;
 }
