@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 
 import { Module } from '@nestjs/common';
@@ -6,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    AuthModule,
     RolesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -20,4 +22,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     UserModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}
