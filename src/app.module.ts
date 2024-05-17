@@ -1,3 +1,4 @@
+import { CommentsModule } from './comments/comments.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 
@@ -7,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    CommentsModule,
     AuthModule,
     RolesModule,
     TypeOrmModule.forRoot({
@@ -22,4 +24,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     UserModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
