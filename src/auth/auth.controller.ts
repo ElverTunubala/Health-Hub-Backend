@@ -8,7 +8,7 @@ import { LoginAuthDto } from './login-auth.dto';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-    
+
   @Post('register')
   register(@Body() userObject: RegisterAuthDto) {
     return this.authService.register(userObject);
@@ -18,3 +18,4 @@ export class AuthController {
     return this.authService.login(userObjectLogin);
   }
 }
+//estamos probando

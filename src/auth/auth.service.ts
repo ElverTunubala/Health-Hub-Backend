@@ -18,11 +18,11 @@ export class AuthService {
 
   async register(userObject: RegisterAuthDto) {
     const user = new AuthEntity();
-    
+
     const { password } = userObject;
     const plainToHash = await hash(password, 10); //retorna la contraseña encriptada
     userObject = { ...userObject, password: plainToHash };
-    
+
     user.name = userObject.name;
     user.email = userObject.email;
     user.password = userObject.password;
