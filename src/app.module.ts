@@ -1,3 +1,4 @@
+import { PhysiciansModule } from './physicians/physicians.module';
 import { Routine_typesModule } from './routine_types/routine_types.module';
 import { Patients_routinesModule } from './patients_routines/patients_routines.module';
 import { CommentsModule } from './comments/comments.module';
@@ -10,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    PhysiciansModule,
     Routine_typesModule,
     Patients_routinesModule,
     CommentsModule,
