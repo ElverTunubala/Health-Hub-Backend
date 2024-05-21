@@ -13,5 +13,4 @@ export class PatientsRoutinesEntity {
 
   @Column()
   routine_id: number;
-
 }

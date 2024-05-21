@@ -1,12 +1,10 @@
-/*
-https://docs.nestjs.com/modules
-*/
-
 import { Module } from '@nestjs/common';
+import { CommentsController } from './comments.controller';
+import { CommentsService } from './comments.service';
 
 @Module({
-    imports: [],
-    controllers: [],
-    providers: [],
+  imports: [],
+  controllers: [CommentsController],
+  providers: [CommentsService],
 })
-export class CommentsModule { }
+export class CommentsModule {}

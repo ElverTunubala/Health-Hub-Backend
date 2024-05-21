@@ -1,7 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { RegisterAuthDto } from './register.dto';
 import { hash, compare } from 'bcrypt';
-// import { UserEntity } from '../user/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginAuthDto } from './login-auth.dto';
@@ -14,7 +13,6 @@ export class AuthService {
     @InjectRepository(AuthEntity)
     private readonly UserRepository: Repository<AuthEntity>,
     private jwtService: JwtService,
-    
   ) {}
 
   async register(userObject: RegisterAuthDto) {
@@ -45,30 +43,10 @@ export class AuthService {
 
     const payload = { id: findUser.id, name: findUser.name };
     const token = this.jwtService.sign(payload);
-
-
     const data = {
       user: findUser,
       token,
     };
     return data;
   }
-
-  async verifyToken(token: string): Promise<any> {
-    try {
-      const decoded = this.jwtService.verify(token);
-      console.log("decoded soy: ",decoded)
-      return decoded;
-      
-    } catch (error) {
-      if (error.name === 'TokenExpiredError') {
-        // Token ha expirado
-        return null;
-      } else {
-        // Token inválido por otras razones
-        return null;
-      }
-    }
-  }
-  
 }

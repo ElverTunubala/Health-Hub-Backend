@@ -1,8 +1,4 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
 import { Controller } from '@nestjs/common';
 
 @Controller()
-export class Patients_routinesController { }
+export class Patients_routinesController {}

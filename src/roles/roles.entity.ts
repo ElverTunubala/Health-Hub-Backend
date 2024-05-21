@@ -10,6 +10,4 @@ export class RolesEntity {
 
   @Column()
   patient: number;
-
-
 }
