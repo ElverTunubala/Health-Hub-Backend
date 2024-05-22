@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LoginAuthDto } from './login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '../user/user.entity';
+import { RolesEntity } from 'src/roles/roles.entity';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,8 @@ export class AuthService {
     @InjectRepository(UserEntity)
     private readonly UserRepository: Repository<UserEntity>,
     private jwtService: JwtService,
+    @InjectRepository(RolesEntity)
+    private readonly rolesRepository: Repository<RolesEntity>,
   ) {}
 
   async register(userObject: RegisterAuthDto) {
@@ -22,14 +25,20 @@ export class AuthService {
     const plainToHash = await hash(password, 10); //retorna la contraseña encriptada
     userObject = { ...userObject, password: plainToHash };
 
-    const { email } = userObject;
+    const { email, rol_id } = userObject;
     const findEmail = await this.UserRepository.findOne({ where: { email } });
     if (findEmail) throw new HttpException('USER ALREADY EXSITS', 404);
+
+    const role = await this.rolesRepository.findOne({ where: { id: rol_id } });
+    if (!role) {
+      throw new Error('Role not found');
+    }
 
     user.name = userObject.name;
     user.email = userObject.email;
     user.password = userObject.password;
-    user.rol_id = userObject.rol_id;
+    user.role = role;
+    // user.rol_id = userObject.rol_id;
     await this.UserRepository.save(user);
 
     return this.UserRepository.create(userObject);
