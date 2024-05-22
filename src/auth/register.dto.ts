@@ -7,5 +7,5 @@ export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   name: string;
 
   @IsNumber()
-  public rol_id: number;
+  rol_id: number;
 }
