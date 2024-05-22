@@ -1,17 +1,14 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'physicians' })
-export class PhysicianEntity {
+@Entity({ name: 'routine_tips' })
+export class RoutineTipsEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  role_id: number;
 
   @Column()
   name: string;
 
   @Column()
-  email: string;
+  routine_id: number;
 
 }
