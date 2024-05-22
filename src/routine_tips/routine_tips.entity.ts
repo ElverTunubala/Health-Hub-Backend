@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'routine_types' })
-export class RoutineTypesEntity {
+@Entity({ name: 'routine_tips' })
+export class RoutineTipsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -9,10 +9,6 @@ export class RoutineTypesEntity {
   name: string;
 
   @Column()
-  description: string;
-
-  @Column()
-  routine_types_id: number;
+  routine_id: number;
 
 }
-

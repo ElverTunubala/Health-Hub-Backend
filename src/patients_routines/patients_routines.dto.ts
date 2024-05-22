@@ -2,10 +2,10 @@ import { IsNumber } from 'class-validator';
 
 export class PatientsRoutinesDto {
   @IsNumber()
-  public patients_routines_id: number;
+  public id: number;
 
   @IsNumber()
-  public patient_id: number;
+  public user_id: number;
 
   @IsNumber()
   public routine_types_id: number;

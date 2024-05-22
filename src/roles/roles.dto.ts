@@ -2,11 +2,9 @@ import { IsNumber } from 'class-validator';
 
 export class RolesDto {
   @IsNumber()
-  public role_id: number;
+  public id: number;
 
-  @IsNumber()
-  public physician: number;
+  @IsString()
+  public name: string;
 
-  @IsNumber()
-  public patient: number;
 }

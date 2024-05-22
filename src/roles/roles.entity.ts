@@ -3,11 +3,9 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'roles' })
 export class RolesEntity {
   @PrimaryGeneratedColumn()
-  role_id: number;
+  id: number;
 
   @Column()
-  physician: number;
+  name: string;
 
-  @Column()
-  patient: number;
 }
