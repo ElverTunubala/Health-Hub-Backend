@@ -2,10 +2,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Routine_typesController } from './routine_types.controller';
 import { RoutineTypesEntity } from './routine_types.entity';
 import { Routine_typesService } from './routine_types.service';
-/*
-https://docs.nestjs.com/modules
-*/
-
 import { Module } from '@nestjs/common';
 
 @Module({
@@ -15,4 +11,4 @@ import { Module } from '@nestjs/common';
     providers: [
         Routine_typesService,],
 })
-export class Routine_typesModule { }
+export class Routine_typesModule {}

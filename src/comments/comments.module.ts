@@ -1,7 +1,3 @@
-/*
-https://docs.nestjs.com/modules
-*/
-
 import { Module } from '@nestjs/common';
 import { CommentsEntity } from './comments.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -13,4 +9,4 @@ import { CommentsService } from './comments.service';
     controllers: [CommentsController],
     providers: [ CommentsService],
 })
-export class CommentsModule { }
+export class CommentsModule {}

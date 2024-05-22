@@ -6,6 +6,9 @@ export class UserEntity {
   id: number;
 
   @Column()
+  rol_id: number;
+
+  @Column()
   name: string;
 
   @Column()

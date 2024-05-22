@@ -1,32 +1,35 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { RegisterAuthDto } from './register.dto';
 import { hash, compare } from 'bcrypt';
-// import { UserEntity } from '../user/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoginAuthDto } from './login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
-import { AuthEntity } from './auth.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(AuthEntity)
-    private readonly UserRepository: Repository<AuthEntity>,
+    @InjectRepository(UserEntity)
+    private readonly UserRepository: Repository<UserEntity>,
     private jwtService: JwtService,
-    
   ) {}
 
   async register(userObject: RegisterAuthDto) {
-    const user = new AuthEntity();
+    const user = new UserEntity();
 
     const { password } = userObject;
     const plainToHash = await hash(password, 10); //retorna la contraseña encriptada
     userObject = { ...userObject, password: plainToHash };
 
+    const { email } = userObject;
+    const findEmail = await this.UserRepository.findOne({ where: { email } });
+    if (findEmail) throw new HttpException('USER ALREADY EXSITS', 404);
+
     user.name = userObject.name;
     user.email = userObject.email;
     user.password = userObject.password;
+    user.rol_id = userObject.rol_id;
     await this.UserRepository.save(user);
 
     return this.UserRepository.create(userObject);
@@ -45,30 +48,10 @@ export class AuthService {
 
     const payload = { id: findUser.id, name: findUser.name };
     const token = this.jwtService.sign(payload);
-
-
     const data = {
       user: findUser,
       token,
     };
     return data;
   }
-
-  async verifyToken(token: string): Promise<any> {
-    try {
-      const decoded = this.jwtService.verify(token);
-      console.log("decoded soy: ",decoded)
-      return decoded;
-      
-    } catch (error) {
-      if (error.name === 'TokenExpiredError') {
-        // Token ha expirado
-        return null;
-      } else {
-        // Token inválido por otras razones
-        return null;
-      }
-    }
-  }
-  
 }
