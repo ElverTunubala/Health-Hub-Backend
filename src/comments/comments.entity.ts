@@ -9,12 +9,12 @@ export class CommentsEntity {
   // @Column()
   // role_id: number;
 
-  @Column()
-  user_id: number;
+  // @Column()
+  // user_id: number;
 
   @Column()
   comment: string;
 
-  @ManyToOne(() => UserEntity, (comment) => comment.users)
-  role: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.comments)
+  user: UserEntity;
 }

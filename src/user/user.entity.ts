@@ -24,6 +24,6 @@ export class UserEntity {
   @ManyToOne(() => RolesEntity, (role) => role.users)
   role: RolesEntity;
 
-  @OneToMany(() => CommentsEntity, (user) => user.comment)
-  users: CommentsEntity[];
+  @OneToMany(() => CommentsEntity, (comment) => comment.user)
+  comments: CommentsEntity[];
 }
