@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 import { RolesEntity } from 'src/roles/roles.entity';
+import {CommentsEntity} from '../comments/comments.entity'
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -22,4 +23,7 @@ export class UserEntity {
 
   @ManyToOne(() => RolesEntity, (role) => role.users)
   role: RolesEntity;
+
+  @OneToMany(() => CommentsEntity, (user) => user.comment)
+  users: CommentsEntity[];
 }

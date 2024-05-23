@@ -1,23 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { UserEntity } from 'src/user/user.entity';
 
 @Entity({ name: 'comments' })
 export class CommentsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  responses_id: number;
-
-  @Column()
-  comment_id: number;
-
-  @Column()
-  role_id: number;
+  // @Column()
+  // role_id: number;
 
   @Column()
   user_id: number;
 
   @Column()
-  response: string;
+  comment: string;
 
+  @ManyToOne(() => UserEntity, (comment) => comment.users)
+  role: UserEntity;
 }

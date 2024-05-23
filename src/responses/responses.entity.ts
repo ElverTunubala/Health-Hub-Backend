@@ -6,12 +6,6 @@ export class ResponsesEntity {
   id: number;
 
   @Column()
-  responses_id: number;
-
-  @Column()
-  role_id: number;
-
-  @Column()
   comment_id: number;
 
   @Column()
@@ -19,6 +13,4 @@ export class ResponsesEntity {
 
   @Column()
   response: string;
-
-
 }
