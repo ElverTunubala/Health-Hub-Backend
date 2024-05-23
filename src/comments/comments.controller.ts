@@ -1,8 +1,12 @@
-// import { Controller } from '@nestjs/common';
-
-// @Controller()
-// export class CommentsController {}
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CommentsDto } from './comments.dto';
 
@@ -31,8 +35,10 @@ export class CommentsController {
   }
 
   @Put(':id')
-  async updateComment(@Param('id') id: number, @Body() commentsDto: CommentsDto) {
+  async updateComment(
+    @Param('id') id: number,
+    @Body() commentsDto: CommentsDto,
+  ) {
     return await this.commentsService.updateComment(id, commentsDto);
   }
 }
-

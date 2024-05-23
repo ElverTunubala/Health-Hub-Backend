@@ -5,12 +5,6 @@ export class ResponsesDto {
   public id: number;
 
   @IsNumber()
-  public responses_id:number;
-
-  @IsNumber()
-  public role_id: number;
-
-  @IsNumber()
   public comment_id: number;
 
   @IsNumber()
@@ -18,5 +12,4 @@ export class ResponsesDto {
 
   @IsString()
   public response: string;
-
 }

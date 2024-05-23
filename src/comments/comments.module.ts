@@ -9,6 +9,6 @@ import { UserService } from 'src/user/user.service';
 @Module({
   imports: [TypeOrmModule.forFeature([CommentsEntity, UserEntity])],
   controllers: [CommentsController],
-  providers: [CommentsService,UserService],
+  providers: [CommentsService, UserService],
 })
 export class CommentsModule {}
