@@ -1,8 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { RolesEntity } from 'src/roles/roles.entity';
-import {CommentsEntity} from '../comments/comments.entity';
-import {RoutinesEntity} from '../routines/routines.entity';
-
+import {CommentsEntity} from '../comments/comments.entity'
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -22,13 +26,10 @@ export class UserEntity {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   creatDate: Date;
-
+  // una persona tiene un rol
   @ManyToOne(() => RolesEntity, (role) => role.users)
   role: RolesEntity;
-
+  // una persona puede tener varios comentarios
   @OneToMany(() => CommentsEntity, (comment) => comment.user)
   comments: CommentsEntity[];
-
-  @OneToMany(() => RoutinesEntity, (routine) => routine.user)
-  routines:RoutinesEntity[];
 }

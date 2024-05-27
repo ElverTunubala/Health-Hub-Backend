@@ -9,6 +9,4 @@ export class CommentsDto {
 
   @IsString()
   public comment: string;
-
 }
-
