@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {RoutinesEntity} from '../routines/routines.entity';
 
 @Entity({ name: 'routine_types' })
 export class RoutineTypesEntity {
@@ -11,8 +12,11 @@ export class RoutineTypesEntity {
   @Column()
   description: string;
 
-  @Column()
-  routine_types_id: number;
+  // @Column()
+  // routine_types_id: number;
+
+  @OneToMany(() => RoutinesEntity, (routine) => routine.routine_type)
+  routines: RoutinesEntity[];
 
 }
 

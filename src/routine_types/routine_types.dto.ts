@@ -11,9 +11,6 @@ export class RoutineTypesDto {
   @IsString()
   public description: string;
 
-  @IsNumber()
-  public routine_types_id: number;
-
 }
 
 

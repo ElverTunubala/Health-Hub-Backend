@@ -1,8 +1,44 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
+import { Controller, Get, Post, Put, Delete, Param, Body, Patch } from '@nestjs/common';
+import { RoutinesService } from './routines.service';
+import { RoutinesDto } from './routines.dto';
 
-import { Controller } from '@nestjs/common';
+@Controller('routines')
+export class RoutinesController {
+  constructor(private readonly routinesService: RoutinesService) {}
 
-@Controller()
-export class RoutinesController { }
+  @Post()
+  async addRoutine(@Body() routinesDto: RoutinesDto) {
+    return await this.routinesService.addRoutine(routinesDto);
+  }
+
+  @Get()
+  async getAllRoutines() {
+    return await this.routinesService.getAllRoutines();
+  }
+
+  @Get(':id')
+  async getRoutineById(@Param('id') id: number) {
+    return await this.routinesService.getRoutineById(id);
+  }
+
+  @Delete(':id')
+  async deleteRoutine(@Param('id') id: number) {
+    return await this.routinesService.deleteRoutine(id);
+  }
+
+  @Put(':id')
+  async updateRoutine(@Param('id') id: number, @Body() routinesDto: RoutinesDto) {
+    return await this.routinesService.updateRoutine(id, routinesDto);
+  }
+
+  // @Patch(':id/followers')
+  // async updateFollowers(@Param('id') id: number, @Body('followers') followers: number) {
+  //   return await this.routinesService.updateFollowers(id, followers);
+  // }
+
+  @Patch(':id/followers')
+  async updateFollowers(@Param('id') routineId: number, @Body('userId') userId: number) {
+    return await this.routinesService.updateFollowers(routineId, userId);
+  }
+}
+

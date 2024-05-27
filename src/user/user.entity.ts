@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 import { RolesEntity } from 'src/roles/roles.entity';
-import {CommentsEntity} from '../comments/comments.entity'
+import {CommentsEntity} from '../comments/comments.entity';
+import {RoutinesEntity} from '../routines/routines.entity';
+
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -26,4 +28,7 @@ export class UserEntity {
 
   @OneToMany(() => CommentsEntity, (comment) => comment.user)
   comments: CommentsEntity[];
+
+  @OneToMany(() => RoutinesEntity, (routine) => routine.user)
+  routines:RoutinesEntity[];
 }
