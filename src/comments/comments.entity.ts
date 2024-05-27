@@ -23,7 +23,6 @@ export class CommentsEntity {
   comment: string;
   //un comentario pertenece a un usuario
   @ManyToOne(() => UserEntity, (user) => user.comments)
-  @ManyToOne(() => UserEntity, (user) => user.comments)
   user: UserEntity;
   //un comentario puede tener varias respuestas
   @OneToMany(() => ResponsesEntity, (response) => response.comment)

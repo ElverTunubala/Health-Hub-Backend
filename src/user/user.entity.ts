@@ -6,7 +6,10 @@ import {
   OneToMany,
 } from 'typeorm';
 import { RolesEntity } from 'src/roles/roles.entity';
-import {CommentsEntity} from '../comments/comments.entity'
+import {CommentsEntity} from '../comments/comments.entity';
+import {ResponsesEntity} from '../responses/responses.entity';
+import {RoutinesEntity} from '../routines/routines.entity';
+
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -32,4 +35,10 @@ export class UserEntity {
   // una persona puede tener varios comentarios
   @OneToMany(() => CommentsEntity, (comment) => comment.user)
   comments: CommentsEntity[];
+  // una persona puede tener varias respuestas
+  @OneToMany(() => ResponsesEntity, (response) => response.user)
+  response: ResponsesEntity[];
+  // una persona con rol de doctor, puede crear varias rutinas
+  @OneToMany(() => RoutinesEntity, (routine) => routine.user)
+  routines:RoutinesEntity[];
 }
