@@ -1,6 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
-import {UserEntity} from '../user/user.entity';
-import {RoutineTypesEntity} from '../routine_types/routine_types.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { UserEntity } from '../user/user.entity';
+import { RoutineTypesEntity } from '../routine_types/routine_types.entity';
 
 @Entity({ name: 'routines' })
 export class RoutinesEntity {
@@ -31,5 +38,4 @@ export class RoutinesEntity {
   @ManyToMany(() => UserEntity)
   @JoinTable()
   followersUsers: UserEntity[];
-
 }

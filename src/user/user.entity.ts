@@ -6,9 +6,10 @@ import {
   OneToMany,
 } from 'typeorm';
 import { RolesEntity } from 'src/roles/roles.entity';
-import {CommentsEntity} from '../comments/comments.entity';
-import {ResponsesEntity} from '../responses/responses.entity';
-import {RoutinesEntity} from '../routines/routines.entity';
+import { CommentsEntity } from '../comments/comments.entity';
+import { ResponsesEntity } from '../responses/responses.entity';
+import { RoutinesEntity } from '../routines/routines.entity';
+import { RoutinesFollowersUsersEntity } from '../routines/followersUsers.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -40,5 +41,11 @@ export class UserEntity {
   response: ResponsesEntity[];
   // una persona con rol de doctor, puede crear varias rutinas
   @OneToMany(() => RoutinesEntity, (routine) => routine.user)
-  routines:RoutinesEntity[];
+  routines: RoutinesEntity[];
+  // Agrega la relación OneToMany con RoutinesFollowersUsersEntity
+  @OneToMany(
+    () => RoutinesFollowersUsersEntity,
+    (routineFollower) => routineFollower.user,
+  )
+  routinesFollowers: RoutinesFollowersUsersEntity[];
 }
