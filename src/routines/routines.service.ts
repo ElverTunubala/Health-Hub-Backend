@@ -6,6 +6,7 @@ import { RoutinesDto } from './routines.dto';
 import { UserEntity } from '../user/user.entity';
 import { RoutineTypesEntity } from '../routine_types/routine_types.entity';
 import { UserService } from '../user/user.service';
+import { Connection } from 'typeorm';
 
 @Injectable()
 export class RoutinesService {
@@ -17,6 +18,7 @@ export class RoutinesService {
     @InjectRepository(RoutineTypesEntity)
     private readonly routineTypesRepository: Repository<RoutineTypesEntity>,
     private readonly userService: UserService,
+    private readonly connection: Connection,
   ) {}
 
   async addRoutine(routinesDto: RoutinesDto) {
@@ -30,7 +32,9 @@ export class RoutinesService {
     }
 
     // Obtener el tipo de rutina por ID
-    const routineType = await this.routineTypesRepository.findOneBy({ id: routine_types_id });
+    const routineType = await this.routineTypesRepository.findOneBy({
+      id: routine_types_id,
+    });
     if (!routineType) {
       throw new Error('Routine type not found');
     }
@@ -38,7 +42,7 @@ export class RoutinesService {
     routine.name = routinesDto.name;
     routine.user = user;
     routine.timeframe = routinesDto.timeframe;
-    routine.followers = routinesDto.followers;
+    routine.followers = 0;
     routine.routine_type = routineType;
 
     const newRoutine = await this.routinesRepository.save(routine);
@@ -46,11 +50,16 @@ export class RoutinesService {
   }
 
   async getAllRoutines() {
-    return await this.routinesRepository.find({ relations: ['user', 'routine_type'] });
+    return await this.routinesRepository.find({
+      relations: ['user', 'routine_type'],
+    });
   }
 
   async getRoutineById(id: number) {
-    return await this.routinesRepository.findOne({ where: { id }, relations: ['user', 'routine_type'] });
+    return await this.routinesRepository.findOne({
+      where: { id },
+      relations: ['user', 'routine_type'],
+    });
   }
 
   async deleteRoutine(id: number) {
@@ -78,7 +87,9 @@ export class RoutinesService {
     }
 
     // Obtener el tipo de rutina por ID
-    const routineType = await this.routineTypesRepository.findOneBy({ id: routine_types_id });
+    const routineType = await this.routineTypesRepository.findOneBy({
+      id: routine_types_id,
+    });
     if (!routineType) {
       throw new Error('Routine type not found');
     }
@@ -104,26 +115,107 @@ export class RoutinesService {
   //   return { updatedRoutine };
   // }
 
+  // async updateFollowers(routineId: number, userId: number) {
+  //   const routine = await this.routinesRepository.findOne({
+  //     where: { id: routineId },
+  //     relations: ['followersUsers'],
+  //   });
+  //   if (!routine) {
+  //     throw new Error('Routine not found');
+  //   }
+
+  //   const user = await this.userService.getUserByID(userId);
+  //   if (!user) {
+  //     throw new Error('User not found');
+  //   }
+
+  //   if (routine.followersUsers.some((follower) => follower.id === user.id)) {
+  //     throw new Error('User has already incremented followers');
+  //   }
+
+  //   routine.followers += 1;
+  //   routine.followersUsers.push(user);
+
+  //   const updatedRoutine = await this.routinesRepository.save(routine);
+  //   return { updatedRoutine };
+  // }
+
+  // async updateFollowers(routineId: number, userId: number) {
+  //   // Busca la rutina por ID
+  //   const routine = await this.routinesRepository.findOne({
+  //     where: { id: routineId },
+  //     relations: ['followersUsers'],
+  //   });
+  //   if (!routine) {
+  //     throw new Error('Routine not found');
+  //   }
+
+  //   // Busca el usuario por ID
+  //   const user = await this.userService.getUserByID(userId);
+  //   if (!user) {
+  //     throw new Error('User not found');
+  //   }
+
+  //   // Verifica si el usuario ya sigue la rutina
+  //   const isAlreadyFollowing = routine.followersUsers.some(
+  //     (follower) => follower.id === userId,
+  //   );
+  //   if (isAlreadyFollowing) {
+  //     throw new Error('User has already incremented followers');
+  //   }
+
+  //   // Incrementa el contador de seguidores y añade el usuario a la lista de seguidores
+  //   routine.followers += 1;
+  //   routine.followersUsers.push(user);
+
+  //   // Guarda la rutina actualizada en la base de datos
+  //   const updatedRoutine = await this.routinesRepository.save(routine);
+
+  //   // Devuelve la rutina actualizada
+  //   return { updatedRoutine };
+  // }
+
   async updateFollowers(routineId: number, userId: number) {
-    const routine = await this.routinesRepository.findOne({ where: { id: routineId }, relations: ['followersUsers'] });
-    if (!routine) {
-      throw new Error('Routine not found');
-    }
+    return await this.connection.transaction(async (manager) => {
+      // Busca la rutina por ID
+      const routine = await manager.findOne(RoutinesEntity, {
+        where: { id: routineId },
+        relations: ['followersUsers'],
+      });
+      if (!routine) {
+        throw new Error('Routine not found');
+      }
 
-    const user = await this.userService.getUserByID(userId);
-    if (!user) {
-      throw new Error('User not found');
-    }
+      // Busca el usuario por ID
+      const user = await this.userService.getUserByID(userId);
+      if (!user) {
+        throw new Error('User not found');
+      }
 
-    if (routine.followersUsers.some(follower => follower.id === user.id)) {
-      throw new Error('User has already incremented followers');
-    }
+      // Verifica si el usuario ya sigue la rutina directamente en la base de datos
+      const userAlreadyFollowing = await manager
+        .createQueryBuilder()
+        .select('1')
+        .from('routines_followers_users', 'routines_followers_users')
+        .where('routines_followers_users.routinesEntityId = :routineId', {
+          routineId,
+        })
+        .andWhere('routines_followers_users.userEntityId = :userId', { userId })
+        .getRawOne();
 
-    routine.followers += 1;
-    routine.followersUsers.push(user);
+      if (userAlreadyFollowing) {
+        throw new Error('User has already incremented followers');
+      }
 
-    const updatedRoutine = await this.routinesRepository.save(routine);
-    return { updatedRoutine };
+      // Incrementa el contador de seguidores y añade el usuario a la lista de seguidores
+      routine.followers += 1;
+      routine.followersUsers.push(user);
+
+      // Guarda la rutina actualizada en la base de datos
+      await manager.save(RoutinesEntity, routine);
+
+      // Devuelve la rutina actualizada
+      return routine;
+    });
   }
 }
-

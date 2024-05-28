@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  Patch,
+} from '@nestjs/common';
 import { RoutinesService } from './routines.service';
 import { RoutinesDto } from './routines.dto';
 
@@ -27,7 +36,10 @@ export class RoutinesController {
   }
 
   @Put(':id')
-  async updateRoutine(@Param('id') id: number, @Body() routinesDto: RoutinesDto) {
+  async updateRoutine(
+    @Param('id') id: number,
+    @Body() routinesDto: RoutinesDto,
+  ) {
     return await this.routinesService.updateRoutine(id, routinesDto);
   }
 
@@ -37,8 +49,10 @@ export class RoutinesController {
   // }
 
   @Patch(':id/followers')
-  async updateFollowers(@Param('id') routineId: number, @Body('userId') userId: number) {
+  async updateFollowers(
+    @Param('id') routineId: number,
+    @Body('userId') userId: number,
+  ) {
     return await this.routinesService.updateFollowers(routineId, userId);
   }
 }
-
