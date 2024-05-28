@@ -142,7 +142,7 @@ npm start
 
 ## Estructura de directorios
 
-txt
+```txt
 health_hub_back/
 │
 |── .vscode/                  # Configuracion para agregar iconos personalizados al proyecto y hacer que se vea como un proyecto Nest.js en Visual Studio Code
@@ -156,7 +156,7 @@ health_hub_back/
 │
 ├── src/                      # Código fuente
 │   ├── auth/                 # Autenticacion
-│   │   └── auth.controller.ts        # Controlador de Autenticacion Responsable de manejar las solicitudes entrantes y devolver las respuestas al cliente. En esta van los Endpoints (URLs) y donde esta el CRUD
+│   │   └── auth.controller.ts        # Controlador de Autenticacion Responsable de manejar las solicitudes  entrantes y devolver las respuestas al cliente. En esta van los Endpoints (URLs) y donde esta el CRUD
 │   │     └── auth.module.ts          # Modulo de Autenticacion
 │   │     └── auth.service.ts         # Logica y Metodos (que son consumidos en el controlador) de Autenticacion
 │   │     └── jwt.constants.ts        # Carpeta llave secreta (token)
@@ -238,4 +238,4 @@ health_hub_back/
 ├── package.json              # Dependencias del proyecto
 └── README.md                 # Documentación del proyecto
 
-
+```
