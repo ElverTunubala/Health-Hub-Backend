@@ -1,22 +1,22 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class RoutinesDto {
-  @IsNumber()
-  public id: number;
-
+  @IsNotEmpty()
   @IsString()
   public name: string;
 
+  @IsNotEmpty()
   @IsNumber()
   public user_id: number;
 
-  @IsString()
+  @IsNotEmpty()
+  @IsNumber()
   public timeframe: number;
 
   @IsNumber()
   public followers: number;
 
+  @IsNotEmpty()
   @IsNumber()
   public routine_types_id: number;
-
 }

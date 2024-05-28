@@ -1,7 +1,6 @@
 import { IsNumber, IsString } from 'class-validator';
 
 export class RoutineTypesDto {
-
   @IsNumber()
   public id: number;
 
@@ -10,7 +9,4 @@ export class RoutineTypesDto {
 
   @IsString()
   public description: string;
-
 }
-
-

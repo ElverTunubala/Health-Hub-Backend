@@ -21,6 +21,7 @@ export class AuthController {
     return this.authService.register(userObject);
   }
   @Post('login')
+  @UsePipes(new ValidationPipe())
   loginUser(@Body() userObjectLogin: LoginAuthDto) {
     return this.authService.login(userObjectLogin);
   }

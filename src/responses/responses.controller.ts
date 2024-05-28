@@ -8,6 +8,8 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ResponsesService } from './responses.service';
 import { ResponsesDto } from './responses.dto';
@@ -17,6 +19,7 @@ export class ResponsesController {
   constructor(private readonly responsesService: ResponsesService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe())
   async addResponse(@Body() responseDto: ResponsesDto) {
     try {
       const newResponse = await this.responsesService.addResponse(responseDto);
@@ -63,6 +66,7 @@ export class ResponsesController {
   }
 
   @Put(':id')
+  @UsePipes(new ValidationPipe())
   async updateResponse(
     @Param('id') id: number,
     @Body() responseDto: ResponsesDto,

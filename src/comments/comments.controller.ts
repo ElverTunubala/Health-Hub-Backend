@@ -6,6 +6,8 @@ import {
   Delete,
   Param,
   Body,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CommentsDto } from './comments.dto';
@@ -15,6 +17,7 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe())
   async addComment(@Body() commentsDto: CommentsDto) {
     return await this.commentsService.addComment(commentsDto);
   }
@@ -35,6 +38,7 @@ export class CommentsController {
   }
 
   @Put(':id')
+  @UsePipes(new ValidationPipe())
   async updateComment(
     @Param('id') id: number,
     @Body() commentsDto: CommentsDto,

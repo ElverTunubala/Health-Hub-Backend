@@ -7,6 +7,8 @@ import {
   Param,
   Body,
   Patch,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { RoutinesService } from './routines.service';
 import { RoutinesDto } from './routines.dto';
@@ -16,6 +18,7 @@ export class RoutinesController {
   constructor(private readonly routinesService: RoutinesService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe())
   async addRoutine(@Body() routinesDto: RoutinesDto) {
     return await this.routinesService.addRoutine(routinesDto);
   }
@@ -36,6 +39,7 @@ export class RoutinesController {
   }
 
   @Put(':id')
+  @UsePipes(new ValidationPipe())
   async updateRoutine(
     @Param('id') id: number,
     @Body() routinesDto: RoutinesDto,
