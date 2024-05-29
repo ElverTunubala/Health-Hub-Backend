@@ -8,13 +8,14 @@ import { PatientsRoutinesEntity } from './patientRoutine.entity';
 import { PatientRoutineService } from './patientroutine.service';
 import { UserModule } from '../user/user.module';
 import { RoutinesModule } from 'src/routines/routines.module';
+import { PatientRoutineController } from './patientroutine.controller';
 
 @Module({
     imports: [TypeOrmModule.forFeature([PatientsRoutinesEntity]),
     UserModule,
     RoutinesModule,
     ],
-    controllers: [],
+    controllers: [PatientRoutineController],
     providers: [PatientRoutineService],
     exports: [PatientRoutineService],
 })

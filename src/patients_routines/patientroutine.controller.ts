@@ -8,9 +8,7 @@ export class PatientRoutineController {
 
   @Post()
   async addPatientsRoutine(@Body() patientsRoutinesDto: PatientRoutineDto) {
-    return await this.patientsRoutinesService.addPatientsRoutine(
-      patientsRoutinesDto,
-    );
+    return await this.patientsRoutinesService.addPatientsRoutine(patientsRoutinesDto);
   }
 
   @Get()

@@ -24,6 +24,7 @@ export class PatientRoutineService {
         const { user_id, routine_id } = patientsRoutinesDto;
     
         const user = await this.userService.getUserByID(user_id);
+        
         if (!user) {
           throw new Error('User not found');
         }

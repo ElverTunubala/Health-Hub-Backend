@@ -7,14 +7,14 @@ export class PatientsRoutinesEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  user_id: number;
+  // @Column()
+  // user_id: number;
 
   // @Column()
   // routine_types_id: number;
 
-  @Column()
-  routine_id: number;
+  // @Column()
+  // routine_id: number;
 
   @ManyToOne(() => UserEntity , (user) => user.patientsRoutines)
   user: UserEntity ;
