@@ -1,6 +1,6 @@
 import { IsNumber } from 'class-validator';
 
-export class PatientsRoutinesDto {
+export class PatientRoutineDto {
   // @IsNumber()
   // public id: number;
 

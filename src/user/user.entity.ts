@@ -10,7 +10,7 @@ import { CommentsEntity } from '../comments/comments.entity';
 import { ResponsesEntity } from '../responses/responses.entity';
 import { RoutinesEntity } from '../routines/routines.entity';
 import { RoutinesFollowersUsersEntity } from '../routines/followersUsers.entity';
-import { PatientsRoutinesEntity } from '../patients_routines/patients_routines.entity';
+import { PatientsRoutinesEntity } from '../patients_routines/patientRoutine.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {

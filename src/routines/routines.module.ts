@@ -19,5 +19,6 @@ import { RoutinesFollowersUsersEntity } from './followersUsers.entity';
   ],
   controllers: [RoutinesController],
   providers: [RoutinesService, UserService],
+  exports: [RoutinesService], 
 })
 export class RoutinesModule {}

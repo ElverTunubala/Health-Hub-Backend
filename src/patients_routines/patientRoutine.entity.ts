@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { UserEntity }from '../user/user.entity';
-import { RoutinesEntity } from '../routines/routines.entity';
+import { RoutinesEntity } from "src/routines/routines.entity";
+import { UserEntity } from "src/user/user.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'patients_routines' })
 export class PatientsRoutinesEntity {
@@ -16,8 +16,8 @@ export class PatientsRoutinesEntity {
   @Column()
   routine_id: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.patientsRoutines)
-  user: UserEntity;
+  @ManyToOne(() => UserEntity , (user) => user.patientsRoutines)
+  user: UserEntity ;
 
   @ManyToOne(() => RoutinesEntity, (routine) => routine.patientsRoutines)
   routine: RoutinesEntity;

@@ -64,6 +64,7 @@ export class AuthService {
       // user: findUser,
       token,
       role: findUser.role.id,
+      userId: findUser.id,
     };
     return data;
   }

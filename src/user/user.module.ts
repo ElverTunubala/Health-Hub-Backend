@@ -6,11 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {ResponsesEntity} from '../responses/responses.entity';
 import {RoutinesEntity} from '../routines/routines.entity';
 import { CommentsEntity} from '../comments/comments.entity';
-import {  PatientsRoutinesEntity } from '../patients_routines/patients_routines.entity';
+// import {  PatientsRoutinesEntity } from '../patients_routines/patients_routines.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, ResponsesEntity, RoutinesEntity,  CommentsEntity,  PatientsRoutinesEntity])],
+  imports: [TypeOrmModule.forFeature([UserEntity, ResponsesEntity, RoutinesEntity,  CommentsEntity])],
   controllers: [UserController],
   providers: [UserService],
+  exports: [UserService],
 })
 export class UserModule {}
