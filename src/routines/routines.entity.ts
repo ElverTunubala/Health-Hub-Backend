@@ -5,9 +5,11 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { RoutineTypesEntity } from '../routine_types/routine_types.entity';
+import { PatientsRoutinesEntity } from '../patients_routines/patients_routines.entity';
 
 @Entity({ name: 'routines' })
 export class RoutinesEntity {
@@ -38,4 +40,7 @@ export class RoutinesEntity {
   @ManyToMany(() => UserEntity)
   @JoinTable()
   followersUsers: UserEntity[];
+
+  @OneToMany(() => PatientsRoutinesEntity, (patientsRoutine) => patientsRoutine.routine)
+  patientsRoutines: PatientsRoutinesEntity[];
 }

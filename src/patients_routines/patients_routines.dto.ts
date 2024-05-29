@@ -7,8 +7,8 @@ export class PatientsRoutinesDto {
   @IsNumber()
   public user_id: number;
 
-  @IsNumber()
-  public routine_types_id: number;
+  // @IsNumber()
+  // public routine_types_id: number;
 
   @IsNumber()
   public routine_id: number;
