@@ -8,8 +8,8 @@ export class PatientsRoutinesEntity {
   @Column()
   user_id: number;
 
-  @Column()
-  routine_types_id: number;
+  // @Column()
+  // routine_types_id: number;
 
   @Column()
   routine_id: number;

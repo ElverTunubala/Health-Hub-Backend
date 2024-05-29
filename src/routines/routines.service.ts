@@ -180,14 +180,16 @@ export class RoutinesService {
       // Busca la rutina por ID
       const routine = await manager.findOne(RoutinesEntity, {
         where: { id: routineId },
-        relations: ['followersUsers'],
+        relations: { followersUsers: true },
       });
       if (!routine) {
         throw new Error('Routine not found');
       }
+      console.log('soy routine: ', routine);
 
       // Busca el usuario por ID
       const user = await this.userService.getUserByID(userId);
+      console.log('soy el usuario', user);
       if (!user) {
         throw new Error('User not found');
       }
@@ -196,11 +198,19 @@ export class RoutinesService {
       const userAlreadyFollowing = await manager
         .createQueryBuilder()
         .select('1')
-        .from('routines_followers_users', 'routines_followers_users')
-        .where('routines_followers_users.routinesEntityId = :routineId', {
-          routineId,
+        .from(
+          'routines_followers_users_users',
+          'routines_followers_users_users',
+        )
+        .where(
+          'routines_followers_users_users.routinesEntityId = :routinesId',
+          {
+            routineId,
+          },
+        )
+        .andWhere('routines_followers_users_users.userEntityId = :usersId', {
+          userId,
         })
-        .andWhere('routines_followers_users.userEntityId = :userId', { userId })
         .getRawOne();
 
       if (userAlreadyFollowing) {

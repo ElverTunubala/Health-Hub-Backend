@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import {RoutinesEntity} from '../routines/routines.entity';
+import { RoutinesEntity } from '../routines/routines.entity';
 
 @Entity({ name: 'routine_types' })
 export class RoutineTypesEntity {
@@ -17,6 +17,4 @@ export class RoutineTypesEntity {
 
   @OneToMany(() => RoutinesEntity, (routine) => routine.routine_type)
   routines: RoutinesEntity[];
-
 }
-
