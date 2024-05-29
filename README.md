@@ -225,17 +225,15 @@ health_hub_back/
 │   │ 
 │   ├── app.module.ts         # Es el modulo Padre. Contenedor de otras clases o artefactos, como son los controladores, servicios y otros componentes desarrollados con Nest
 │   └── main.ts               # Configuracion y rutas de la aplicacion
-│
-│ 
-│ 
-│ 
-│ 
-│ 
-│ 
-│ 
-├── .env                      # Variables de entorno (como la URL de la base de datos, puerto del servidor, etc.)
-├── .gitignore                # Archivos a ignorar por git
-├── package.json              # Dependencias del proyecto
-└── README.md                 # Documentación del proyecto
-
-
+│   │
+│   │
+│   ├──.eslintrc.js/          # Ayuda a detectar que se cumplan unas ciertas normas y criterios (personalizables por el programador) para que el código Javascript escrito siga unos estándares y estilos de calidad, favoreciendo la escritura de código correcto, coherente y consistente.
+│   │  
+│   ├──.gitignore             # Archivos a ignorar por git
+│   ├──.prettierrc/           # Formateador automático de código. En base a las configuraciones definidas manteniendo así un estilo consistente.
+│   ├──.nest-cli.json/        # Configuracion (Command Line Interface) en Nest
+│   ├──.package-lock.json/    # Versionamiento de las dependencias
+│   ├──.package.json          # Dependencias del proyecto
+│   ├──README.md              # Documentación del proyecto
+│   ├──.tsconfig.build.json/  # Configuracion para cuando se construya el proyecto y se use TypeScript
+│   ├──.tsconfig.json         # Propiedades de configuracion para TypeScript
