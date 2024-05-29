@@ -47,7 +47,10 @@ export class AuthService {
 
   async login(userObjectLogin: LoginAuthDto) {
     const { email, password } = userObjectLogin;
-    const findUser = await this.UserRepository.findOne({ where: { email } });
+    const findUser = await this.UserRepository.findOne({
+      where: { email },
+      relations: { role: true },
+    });
 
     if (!findUser) throw new HttpException('USER NOT FOUND', 404);
 
@@ -58,8 +61,9 @@ export class AuthService {
     const payload = { id: findUser.id, name: findUser.name };
     const token = this.jwtService.sign(payload);
     const data = {
-      user: findUser,
+      // user: findUser,
       token,
+      rol_id: findUser.role.id,
     };
     return data;
   }
