@@ -1,12 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
+import { RolesService } from './roles.service';
 
-@Controller()
+@Controller('role')
 export class RolesController {
+  constructor(private rolesService: RolesService) {}
   @Get()
-  findAll() {
-    return [
-      { id: 1, name: 'physician' },
-      { id: 2, name: 'patient' },
-    ];
+  async getRole() {
+    return await this.rolesService.getAllroles();
   }
 }
