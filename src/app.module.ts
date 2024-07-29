@@ -25,7 +25,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'Rlwl2023.',
+      password: 'yalanda66.',
       database: 'health_database',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
